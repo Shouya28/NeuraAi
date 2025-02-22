@@ -40,6 +40,7 @@ ${
 - *AntiSticker:* ${chat.antiVirtex ? "on" : "off"}
 - *AntiBadword:* ${chat.antiBadword ? "on" : "off"}
 - *AntiFoto:* ${chat.antiFoto ? "on" : "off"}
+- *AntiVn:* ${chat.antiVn ? "on" : "off"}
 - *Game:* ${chat.game ? "on" : "off"}
 - *AutoClose:* ${chat.autoClose ? "on" : "off"}
 - *YoutubeUpdate:* ${chat.youtubeupdate ? "on" : "off"}
@@ -203,6 +204,15 @@ ${
       chat.antiFoto = isEnable;
     } else return global.dfail("group", m, conn);
     break;
+    case "antivn":
+if (m.isGroup) {
+  if (!(isAdmin || isOwner)) {
+    global.dfail("admin", m, conn);
+    return false;
+  }
+  chat.antiVn = isEnable;
+} else return global.dfail("group", m, conn);
+break;
     case "autoclose":
       if (m.isGroup) {
         if (!(isAdmin || isOwner)) {

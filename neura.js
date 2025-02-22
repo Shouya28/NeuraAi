@@ -11,10 +11,6 @@ import canvafy from "canvafy"
 const printMessage = (await import('./lib/print.js')).default
 const { proto } = (await import('@adiwajshing/baileys')).default
 const isNumber = x => typeof x === 'number' && !isNaN(x)
-const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(function() {
-  clearTimeout(this)
-  resolve()
-}, ms))
 
 export async function neura(chatUpdate) {
   this.msgqueque = this.msgqueque || []
@@ -906,16 +902,7 @@ export async function neura(chatUpdate) {
    
     if (typeof m.text !== 'string')
       m.text = ''
-    if (opts['queque'] && m.text && !(isMods || isPrems)) {
-  let queque = this.msgqueque,
-    time = 1000 * 5
-  const previousID = queque[queque.length - 1]
-  queque.push(m.id || m.key.id)
-  setInterval(async function() {
-    if (queque.indexOf(previousID) === -1) clearInterval(this)
-    await delay(time)
-  }, time)
-}
+    
 
 if (m.isBaileys) return;
 if (_command) {
@@ -1112,7 +1099,7 @@ if (plugin.level > _user.level) {
     `Your level must be above ${plugin.level} to use this command.`,
     'ACCESS DENIED',
     global.infoo.wm,
-    global.denied,
+    global.assetUrls.accessDenied,
     "",
     m,
     false
@@ -1126,7 +1113,7 @@ if (plugin.age > _user.age) {
     `Your age must be above ${plugin.age} to use this command.`,
     'ACCESS DENIED',
     global.infoo.wm,
-    global.denied,
+    global.assetUrls.accessDenied,
     global.linkk.website,
     m,
     false
@@ -1344,23 +1331,23 @@ export async function deleteUpdate(message) {
 
 global.dfail = (type, m, conn) => {
   let msg = {
-    owner: global.msg.owner,
+    owner: global.msg.privilege.owner,
     mods: global.msg.mods,
-    premium: global.msg.premium,
-    group: global.msg.group,
-    private: global.msg.private,
-    admin: global.msg.admin,
-    botAdmin: global.msg.botAdmin,
+    premium: global.msg.accessControl.premium,
+    group: global.msg.accessControl.group,
+    private: global.msg.accessControl.private,
+    admin: global.msg.privilege.admin,
+    botAdmin: global.msg.privilege.botAdmin,
     segel: global.msg.segel,
     onlyprem: global.msg.onlyprem,
     nsfw: global.msg.nsfw,
-    rpg: global.msg.rpg,
-    game: global.msg.game,
-    limitExp: global.msg.limitExp,
+    rpg: global.msg.systemStatus.rpg,
+    game: global.msg.systemStatus.game,
+    limitExp: global.msg.systemStatus.limitExp,
     restrict: global.msg.restrict,
-    unreg: global.msg.unreg
+    unreg: global.msg.userManagement.unreg
   } [type]
-  if (msg) return conn.adReply(m.chat, msg, 'D E C L I N E', global.infoo.wm, global.denied, "", m, false)
+  if (msg) return conn.adReply(m.chat, msg, 'D E C L I N E', global.infoo.wm, global.assetUrls.accessDenied, "", m, false)
 }
 
 let file = global.__filename(import.meta.url, true)

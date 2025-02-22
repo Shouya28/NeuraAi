@@ -91,14 +91,14 @@ neura.all = async function(m) {
     },
     message: {
       documentMessage: {
-        title: "Neura — Community",
+        title: "NeuraSpehere",
         jpegThumbnail: "https://files.catbox.moe/n2n8ml.jpg",
       },
     },
   };
   global.fwa = {
         key: { participant: "0@s.whatsapp.net", remoteJid: "0@s.whatsapp.net" },
-        message: { conversation: `${infoo.wm} Terverifikasi Oleh WhatsApp`},
+        message: { conversation: `${infoo.wm} Verified by WhatsApp`},
       },
       
   global.fkontak = {

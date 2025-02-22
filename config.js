@@ -1,46 +1,89 @@
+/*
+ * Neura — Spehere by Ryzxell ✦
+ * WhatsApp Channel: https://whatsapp.com/channel/0029VayjbFK4inonCYjGj42l
+ * GitHub Repository: https://github.com/Shouya28
+ * WhatsApp Contact: https://wa.me/6283138902543
+ * 
+ * Greetings! This is my watermark. Please refrain from removing it.
+ * Thank you for your understanding and cooperation.
+ */
+ 
 import { watchFile, unwatchFile } from "fs";
-import fs from 'fs';
 import chalk from "chalk";
 import { fileURLToPath } from "url";
 
-global.owner = [["62895324429899", "Ryzxell", true]],
-  global.pairingNumber = "6283148375193",
-  global.pairingAuth = true,
-  global.nomorown = "62895324429899";
-
-global.stickpack = "Made with";
-global.stickauth = "Neura";
-
-global.wait = "✦ Tunggu sebentar yaa~";
-global.error = "*Sorry, something went wrong* (˚ ˃̣̣̥⌓˂̣̣̥ )";
-
-global.msg = {
-  owner: '*ACCESS DENIED*\n> Sorry this feature is for owners only!',
-  premium: '*ACCESS DENIED*\n> Sorry, this feature is only for premium users.\n> Upgrade to *Premium* now by typing *.buyprem* ツ',
-  group: '*ACCESS DENIED*\n> Sorry, this feature can only be used within a Group.',
-  private: '*ACCESS DENIED*\n> Sorry, this feature can only be used in private chat.',
-  admin: '*ACCESS DENIED*\n> Sorry, this feature is only for group admins ツ',
-  botAdmin: '*Sorry bot not admin*\n>Make bot as admin to use this feature ツ',
-  onlyprem: '\`Only premium users can use this feature.Only premium users can use this feature in private chat. ツ`',
-  rpg: '*ACCESS DENIED*\n> Sorry, admin turned off the RPG feature in this group ツ',
-  game: '*ACCESS DENIED*\n> Sorry admin turned off the game feature in this group ツ',
-  limitExp: '*limit has been reached (˚ ˃̣̣̥⌓˂̣̣̥ ) ‧º*\n> To get a limit, you can buy it by typing .buy limit or waiting for the limit to refresh every day.',
-  unreg: '✦ *Hi user, you are not registered in the bot database*\n> type .daftar nama.umur.gender\n> example: .daftar Shouya.17.cowok\n\n*If you want to register automatically*\n> type @verify'
+// ==============================
+// KONFIGURASI IDENTITAS 
+// ==============================
+global.owner = [
+  ["62895324429899", "Ryzxell", true] // [nomor, nama, status admin]
+];
+global.systemContacts = {
+  pairingNumber: "6283148375193", // [isi dengan nomor WhatsApp bot kamu]
+  pairingAuth: true, // [jika false akan tautkan menggunakan qr code]
 };
 
-global.denied = "https://files.catbox.moe/frlknp.jpg";
-global.thumbnail = ["https://files.catbox.moe/upnh15.jpg", "https://files.catbox.moe/ckzdif.jpg", "https://files.catbox.moe/e8zpev.jpg", "https://files.catbox.moe/zuhole.jpg", "https://files.catbox.moe/m0cnre.jpg", "https://files.catbox.moe/watxj0.jpg", "https://files.catbox.moe/ljj4ml.jpg", "https://files.catbox.moe/44bgsm.jpg"];
-global.thumb = ["https://files.catbox.moe/l6swfz.jpg",
-  "https://files.catbox.moe/o4eh3u.jpg",
-  "https://files.catbox.moe/eb4czb.jpg",
-  "https://files.catbox.moe/iap3h0.jpg",
-  "https://files.catbox.moe/01z5vn.jpg",
-  "https://files.catbox.moe/pfl40n.jpg",
-  "https://files.catbox.moe/0x7kmh.jpg"];
+// ========================
+// KONFIGURASI STICKER 
+// ========================
+global.stickerMetadata = {
+  packName: "Neura Spehere",
+  author: "Powered by Ryzxell"
+};
 
-let file = fileURLToPath(import.meta.url);
-watchFile(file, () => {
-  unwatchFile(file);
-  console.log(chalk.blueBright("Update 'config.js'"));
-  import(`${file}?update=${Date.now()}`);
+// ========================
+// SISTEM NOTIFIKASI
+// ========================
+global.systemMessages = {
+  processing: "Processing your request...",
+  error: "_The server is busy. Please try again later._",
+  success: "✓ Operation completed successfully"
+};
+
+// ========================
+// RESPON INTERAKTIF
+// ========================
+global.msg = {
+  privilege: {
+    owner: "🚫 *Authorization Required* | This feature is restricted to bot owners only",
+    admin: "🔑 *Privilege Restriction* | Administrator access required",
+    botAdmin: "🤖 *Permission Needed* | Bot requires administrator privileges"
+  },
+  accessControl: {
+    group: "👥 *Group Context Required* | This command is only available in group chats",
+    private: "🔒 *Privacy Restriction* | Please use this feature in direct messages",
+    premium: "💎 *Premium Feature* | Upgrade your account with .buyprem command"
+  },
+  systemStatus: {
+    rpg: "🎮 *System Alert* | RPG module is currently disabled in this group",
+    game: "🕹 *System Alert* | Gaming features are suspended in this group",
+    limitExp: "📉 *Resource Limit* | Daily quota exhausted. Type .buy limit or wait for reset"
+  },
+  userManagement: {
+    unreg: `📋 Registration Required | 
+    Usage: .register [name].[age].[gender]
+    Example: .register Neura.18.female
+    
+    For automatic verification: @verify`
+  }
+};
+
+// ========================
+// MANAJEMEN ASET
+// ========================
+global.assetUrls = {
+  accessDenied: "https://files.catbox.moe/frlknp.jpg",
+  thumb: [
+    "https://files.catbox.moe/ctv3p3.jpg"
+  ]
+};
+
+// ========================
+// SISTEM AUTO-RELOAD
+// ========================
+const configPath = fileURLToPath(import.meta.url);
+watchFile(configPath, () => {
+  unwatchFile(configPath);
+  console.log(chalk.hex("#2ecc71")(`[ SYSTEM ] Configuration updated at ${new Date().toLocaleTimeString()}`));
+  import(`${configPath}?update=${Date.now()}`);
 });

@@ -24,7 +24,7 @@ say(name, {
 say(author, {
   font: "console",
   align: "center",
-  gradient: ["red", "yellow"],
+  gradient: ["red", "white"],
 });
 
 let isRunning = false;

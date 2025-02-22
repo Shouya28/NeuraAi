@@ -42,32 +42,32 @@ let tags = {
 };
 
 const defaultMenu = {
-  before: `
-乂 *Information user*
+    before: `
+✧ *User Information*
 - *Name:* %name
 - *Status:* %status
-- *Umur:* %age
+- *Age:* %age
 - *Limit:* %limit
 - *Role:* %role
-- *Level:* %level [ %xp4levelup Xp For LevelUp]
-- *Xp:* %exp / %maxexp
-- *Total Exp:* %totalexp
+- *Level:* %level [%xp4levelup XP to Level Up]
+- *XP:* %exp / %maxexp
+- *Total XP:* %totalexp
 
-乂 *Information Neura*
+✧ *Neura Information*
 - *Bot Name:* %me
 - *Mode:* %mode
 - *Platform:* Linux
-- *Type:* Node.Js
+- *Type:* Node.js
 - *Baileys:* Multi Device
 - *Uptime:* %muptime
-- *Database:* %rtotalreg dari %totalreg
-- *Total hit:* %totalHits
-- *Rating:* %averageRating dari 5
+- *Database:* %rtotalreg of %totalreg
+- *Total Hits:* %totalHits
+- *Rating:* %averageRating out of 5
 %readmore`,
-  header: "*—%category*",
-  body: "⳺ %cmd %islimit %isPremium",
-  footer: "",
-  after: "",
+    header: "✧ *%category*",
+    body: "- %cmd %islimit %isPremium",
+    footer: "",
+    after: "",
 };
 
 const loadRatings = (filePath) => {
@@ -176,7 +176,7 @@ let neura = async (m, { conn, usedPrefix }) => {
     p: usedPrefix,
     uptime,
     muptime,
-    me: conn.getName(conn.user.jid),
+    me: global.infoo.wm,
     npmname: _package.name,
     npmdesc: _package.description,
     version: _package.version,
@@ -214,9 +214,9 @@ let neura = async (m, { conn, usedPrefix }) => {
   let globall = global.db.data.bots;
   await conn.sendMessage(m.key.remoteJid, {
     document: fs.readFileSync("./package.json"),
-    mimetype: global.doc,
-    fileName: ucapan,
-    name,
+    mimetype: "application/pdf",
+    thumbnailUrl: "https://files.catbox.moe/7t2dw6.jpg",
+    fileName: ucapan, name,
     fileLength: 2025,
     pageCount: 2025,
     caption: text,
@@ -258,13 +258,23 @@ let neura = async (m, { conn, usedPrefix }) => {
             }]
           })
         }
-      }
-    ],
+      }, {
+    buttonId: "btns",
+  buttonText: { displayText: "https://github.com/Shouya28" },
+  nativeFlowInfo: {
+    name: "cta_url",
+    paramsJson: JSON.stringify({
+      display_text: "My Github",
+      type: 2,
+      url: "https://github.com/Shouya28"
+    })
+  } }
+  ],
     contextInfo: {
       mentionedJid: [m.sender],
       externalAdReply: {
-        thumbnailUrl: thumbnail.getRandom(),
-        mediaUrl: thumbnail.getRandom(),
+        thumbnailUrl: linkk.website,
+        mediaUrl: menu.menu,
         mediaType: 1,
         sourceUrl: linkk.website,
         renderLargerThumbnail: true,
@@ -299,3 +309,5 @@ function getRandom() {
     return this[Math.floor(Math.random() * this.length)];
   return Math.floor(Math.random() * this);
 }
+
+

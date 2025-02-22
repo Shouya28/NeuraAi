@@ -155,7 +155,7 @@ if (global.pairingAuth && !conn.authState.creds.registered) {
         code = code?.match(/.{1,4}/g)?.join("-") || code;
         console.log(chalk.black(chalk.bgGreen(`Your Pairing Code: `)), chalk.black(chalk.white(code)));
     }, 3000);
-}
+} 
 
 if (!opts['test']) {
 setInterval(async () => {
