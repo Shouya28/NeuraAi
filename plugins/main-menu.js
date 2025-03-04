@@ -273,7 +273,7 @@ let neura = async (m, { conn, usedPrefix }) => {
     contextInfo: {
       mentionedJid: [m.sender],
       externalAdReply: {
-        thumbnailUrl: linkk.website,
+        thumbnailUrl: menu.menu,
         mediaUrl: menu.menu,
         mediaType: 1,
         sourceUrl: linkk.website,
