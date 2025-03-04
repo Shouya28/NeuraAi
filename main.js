@@ -115,7 +115,7 @@ const { version, isLatest } = await fetchLatestBaileysVersion();
 const connectionOptions = {
     version,
     logger: pino({ level: 'silent' }),
-    printQRInTerminal: !global.pairingAuth,
+    printQRInTerminal: !global.systemContacts.pairingAuth,
     browser: ['Linux', 'Chrome', ''],
     auth: {
         creds: state.creds,
@@ -130,10 +130,10 @@ global.conn = makeWASocket(connectionOptions);
 conn.isInit = false;
 let sessionCleanupDone = false;
 
-if (global.pairingAuth && !conn.authState.creds.registered) {
+if (global.systemContacts.pairingAuth && !conn.authState.creds.registered) {
     let phoneNumber;
-    if (!!global.pairingNumber) {
-        phoneNumber = global.pairingNumber.replace(/[^0-9]/g, '');
+    if (!!global.systemContacts.pairingNumber) {
+        phoneNumber = global.systemContacts.pairingNumber.replace(/[^0-9]/g, '');
         if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
             console.log(chalk.bgBlack(chalk.redBright("Please start with your country's WhatsApp code, e.g., 62xxx")));
             process.exit(0);
