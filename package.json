@@ -1,6 +1,6 @@
 {
-  "name": "Neura",
-  "author": "Ryzxell",
+  "name": "NeuraSpehere",
+  "author": "Harry",
   "version": "1.0.0",
   "description": "WhatsApp Bot powered by ESM plugins and multi-device support",
   "main": "index.js",
@@ -15,8 +15,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "node test.js",
-    "test2": "nodemon index.js"
+    "run": "nodemon index.js"
   },
   "keywords": [
     "termux-whatsapp-bot",
@@ -32,7 +31,7 @@
   ],
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@adiwajshing/baileys": "npm:@rulzz2nd/baileys-emde@^7.0.1",
+    "@adiwajshing/baileys": "github:WhiskeySockets/Baileys",
     "@anthropic-ai/sdk": "^0.20.9",
     "@bochilteam/scraper": "^4.2.3",
     "@google/generative-ai": "^0.11.4",

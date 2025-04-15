@@ -16,6 +16,9 @@ import os from "os";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from 'url';
+const { generateWAMessageFromContent, proto, prepareWAMessageMedia } = (
+  await import("@adiwajshing/baileys")
+).default;
 
 let tags = {
   feedback: "FEEDBACK",
@@ -212,79 +215,132 @@ let neura = async (m, { conn, usedPrefix }) => {
     (_, name) => "" + replace[name]
   );
   let globall = global.db.data.bots;
-  await conn.sendMessage(m.key.remoteJid, {
-    document: fs.readFileSync("./package.json"),
-    mimetype: "application/pdf",
-    thumbnailUrl: "https://files.catbox.moe/7t2dw6.jpg",
-    fileName: ucapan, name,
-    fileLength: 2025,
-    pageCount: 2025,
-    caption: text,
-    footer: `${infoo.wm} ` + infoo.versi,
-    buttons: [{
+  let fkon = {
+  key: {
+    fromMe: false,
+    participant: `${m.sender.split`@`[0]}@s.whatsapp.net`,
+    ...(m.chat ? { remoteJid: "16504228206@s.whatsapp.net" } : {}),
+  },
+  message: {
+    contactMessage: {
+      displayName: `${name}`,
+      vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split("@")[0]}:${m.sender.split("@")[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`,
+    },
+  },
+};
+
+let pp = await conn
+  .profilePictureUrl(m.sender, "image")
+  .catch((_) => "https://telegra.ph/file/8904062b17875a2ab2984.jpg");
+      let msg = generateWAMessageFromContent(
+  m.chat,
+  {
+    viewOnceMessage: {
+      message: {
+        messageContextInfo: {
+          deviceListMetadata: {},
+          deviceListMetadataVersion: 2,
+        },
+        interactiveMessage: {
+          body: {
+            text: text,
+          },
+          footer: {
+            text: "wm",
+          },
+          header: {
+            title: "",
+            subtitle: "Menu",
+            hasMediaAttachment: true,
+            ...(await prepareWAMessageMedia(
+              {
+                document: {
+                  url: "https://whatsapp.com/channel/0029Vac0DjG6xCSJT0HTV61w",
+                },
+                mimetype: "image/webp",
+                fileName: `[ Hello ${m.name} ]`,
+                pageCount: 2024,
+                jpegThumbnail: await conn.resize(pp, 400, 400),
+                fileLength: 2024000,
+              },
+              { upload: conn.waUploadToServer }
+            )),
+          },
+          contextInfo: {
+            forwardingScore: 2024,
+            isForwarded: true,
+            mentionedJid: [m.sender],
+            forwardedNewsletterMessageInfo: {
+              newsletterJid: linkk.chid,
+              serverMessageId: null,
+              newsletterName: ""
+            },
+            externalAdReply: {
+              showAdAttribution: true,
+              title: "[ Hello I'm Emilia-Ogiwara ]",
+              body: "",
+              mediaType: 1,
+              sourceUrl: "https://rest.cifumo.biz.id",
+              thumbnailUrl: menu.menu,
+              renderLargerThumbnail: true,
+            },
+          },
+          nativeFlowMessage: {
+            buttons: [
+              {
+                name: "single_select",
+                buttonParamsJson: JSON.stringify({
+                  title: "List Menu",
+                  sections: [
+                    {
+                      title: "List Menu",
+                      highlight_label: "Popular",
+                      rows: [{
+                        header: infoo.wm,
+                        title: "coming soon",
+                        description: "404",
+                        id: ".."
+                      }
+                      ],
+                    },
+                  ],
+                }),
+              },
+              {
+                name: "quick_reply",
+                buttonParamsJson: JSON.stringify({
+                  display_text: "Owner ku cayang",
+                  id: ".owner",
+                }),
+              },
+              {
+                name: "cta_url",
+                buttonParamsJson: JSON.stringify({
+                  display_text: "Rest API",
+                  url: "https://rest.cifumo.xyz",
+                  merchant_url: "https://rest.cifumo.xyz",
+                }),
+              },
+            {
         buttonId: '.owner',
         buttonText: {
-          displayText: 'My Owner'
+          displayText: 'Contact owner'
         },
         type: 1
-      },
-      {
-        buttonId: '.sewa',
-        buttonText: {
-          displayText: 'Sewa Bot'
         },
-        type: 1
-      },
-      {
-        buttonId: 'action',
-        buttonText: {
-          displayText: 'ini pesan interactiveMeta'
+            ],
+          },
         },
-        type: 4,
-        nativeFlowInfo: {
-          name: 'single_select',
-          paramsJson: JSON.stringify({
-            title: 'Menu list',
-            sections: [{
-              title: infoo.wm,
-              highlight_label: 'Favorite',
-              rows: [{
-                  header: infoo.wm,
-                  title: 'coming soon',
-                  description: '404 ',
-                  id: '.logs'
-                }
-              ]
-            }]
-          })
-        }
-      }, {
-    buttonId: "btns",
-  buttonText: { displayText: "https://github.com/Shouya28" },
-  nativeFlowInfo: {
-    name: "cta_url",
-    paramsJson: JSON.stringify({
-      display_text: "My Github",
-      type: 2,
-      url: "https://github.com/Shouya28"
-    })
-  } }
-  ],
-    contextInfo: {
-      mentionedJid: [m.sender],
-      externalAdReply: {
-        thumbnailUrl: menu.menu,
-        mediaUrl: menu.menu,
-        mediaType: 1,
-        sourceUrl: linkk.website,
-        renderLargerThumbnail: true,
-        title: infoo.wm,
-        body: `Halo ` + name
-      }
+      },
     },
-    headerType: 1,
-    viewOnce: true
-  }, { quoted: fwa });
+  },
+  { quoted: m },
+  {}
+);
+
+    await conn.relayMessage(msg.key.remoteJid, msg.message, {
+      messageId: msg.key.id,
+    });
 };
 
 neura.help = ["menu"];
@@ -309,5 +365,3 @@ function getRandom() {
     return this[Math.floor(Math.random() * this.length)];
   return Math.floor(Math.random() * this);
 }
-
-
