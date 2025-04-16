@@ -14,7 +14,7 @@
     "plugins": "plugins"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "npm install && npm rebuild hnswlib-node canvas sharp && node index.js",
     "run": "nodemon index.js"
   },
   "keywords": [
