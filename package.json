@@ -14,7 +14,7 @@
     "plugins": "plugins"
   },
   "scripts": {
-    "start": "npm install @tensorflow - models / universal - sentence - encoder && npm install && npm rebuild hnswlib-node canvas sharp && node index.js",
+    "start": "npm install && node index.js",
     "run": "nodemon index.js"
   },
   "keywords": [
@@ -32,7 +32,6 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@adiwajshing/baileys": "github:WhiskeySockets/Baileys",
-    "@anthropic-ai/sdk": "^0.20.9",
     "@bochilteam/scraper": "^4.2.3",
     "@google/generative-ai": "^0.11.4",
     "@shineiichijo/nhentai-ts": "^1.0.3",
@@ -96,7 +95,6 @@
     "nodemailer": "^6.9.12",
     "npm": "^10.5.0",
     "ocr-space-api-wrapper": "^2.3.0",
-    "openai": "^4.28.4",
     "ora": "^8.0.1",
     "pdf-lib": "*",
     "pdfkit": "^0.13.0",
@@ -106,7 +104,6 @@
     "playwright": "^1.50.0",
     "playwright-extra": "^4.3.6",
     "prettier": "^3.4.2",
-    "prodia.js": "^3.0.0",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "qrcode": "^1.5.0",
     "qrcode-terminal": "^0.12.0",
